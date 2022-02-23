@@ -41,7 +41,8 @@
       <div style="display: flex; justify-content: center;">
         <v-card style="width: 80%; justify-content: center; text-align: center; background-color: #4c4c4c;"> 
           <div style="padding: 30px;">
-            <h1 style="margin: 0px; color: #fff;">Balance {{balance/(10**18)}} BNB</h1>
+            <h1 style="margin: 10px; color: #fff;">System Balance {{systembalance/(10**18)}} {{metamask.symbol}}</h1>
+            <h2 style="margin: 10px; color: #fff;">Your Balance {{balance/(10**18)}} {{metamask.symbol}}</h2>
           </div>
           <div style="display: flex; justify-content: space-evenly; padding: 20px;">
             <div>
@@ -441,6 +442,7 @@
           rei:"https://kururu.finance/faucet?chainId=55556",
         },
         balance:"0",
+        systembalance:"0",
         deposit:"",
         withdraw:"",
         transfer:{address:"",amount:""}
@@ -582,6 +584,10 @@
           this.smratContract.methods.userBalance().call({from:this.metamask.address}).then((res)=>{
             console.log("Balance User : ",res)
             this.balance = res
+          });
+          this.smratContract.methods.systemBalance().call({from:this.metamask.address}).then((res)=>{
+            console.log("System Balance User : ",res)
+            this.systembalance = res
           });
         },
         Deposit(){
